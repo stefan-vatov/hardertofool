@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <!-- III: the third error-correcting process, as an inscription. -->
+  <style>
+    rect { fill: #1f2023; }
+    @media (prefers-color-scheme: dark) { rect { fill: #e9e7e0; } }
+  </style>
+  <rect x="6" y="7" width="3.5" height="18" />
+  <rect x="14.25" y="7" width="3.5" height="18" />
+  <rect x="22.5" y="7" width="3.5" height="18" />
+</svg>

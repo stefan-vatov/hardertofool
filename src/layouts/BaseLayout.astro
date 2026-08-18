@@ -1,0 +1,177 @@
+---
+import "../styles/global.css";
+import fontTextUrl from "../assets/fonts/charis-latin-400.woff2?url";
+import fontDisplayUrl from "../assets/fonts/cormorant-latin-vf.woff2?url";
+import fontDisplayItalicUrl from "../assets/fonts/cormorant-latin-vf-italic.woff2?url";
+import SiteHeader from "../components/SiteHeader.astro";
+import SiteFooter from "../components/SiteFooter.astro";
+
+interface Props {
+  title: string;
+  description: string;
+  /** Path of the current page, e.g. "/code". Used for canonical URL and nav state. */
+  path: string;
+  ogType?: "website" | "article";
+}
+
+const { title, description, path, ogType = "website" } = Astro.props;
+
+const site = Astro.site!.href.replace(/\/$/, "");
+const canonical = path === "/" ? `${site}/` : `${site}${path}`;
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": `${site}/#website`,
+      url: `${site}/`,
+      name: "Harder to Fool",
+      description:
+        "A practical framework for human-machine collaboration: a joint process harder to fool than either participant alone.",
+      isAccessibleForFree: true,
+      inLanguage: "en",
+      license: "https://creativecommons.org/licenses/by/4.0/",
+    },
+    ogType === "article"
+      ? {
+          "@type": "Article",
+          "@id": `${canonical}#article`,
+          headline: title,
+          description,
+          url: canonical,
+          isPartOf: { "@id": `${site}/#website` },
+          author: { "@type": "Organization", name: "Harder to Fool" },
+        }
+      : {
+          "@type": "WebPage",
+          "@id": `${canonical}#webpage`,
+          name: title,
+          description,
+          url: canonical,
+          isPartOf: { "@id": `${site}/#website` },
+        },
+  ],
+};
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="sitemap" href="/sitemap.xml" />
+    <!-- Machine-readable alternates: agents can skip the HTML entirely. -->
+    <link
+      rel="alternate"
+      type="text/markdown"
+      href="/llms-full.txt"
+      title="Harder to Fool, complete corpus"
+    />
+    <link
+      rel="preload"
+      href={fontTextUrl}
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href={fontDisplayUrl}
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href={fontDisplayItalicUrl}
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+
+    <meta property="og:type" content={ogType} />
+    <meta property="og:site_name" content="Harder to Fool" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={`${site}/og.png`} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={`${site}/og.png`} />
+
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f5f4f0" />
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#161618" />
+
+    <script is:inline>
+      // Theme resolution before first paint. A stored override wins;
+      // otherwise prefers-color-scheme decides via CSS alone.
+      (() => {
+        try {
+          const t = localStorage.getItem("theme");
+          if (t === "light" || t === "dark")
+            document.documentElement.dataset.theme = t;
+        } catch {}
+      })();
+    </script>
+
+    <script
+      is:inline
+      type="application/ld+json"
+      set:html={JSON.stringify(jsonLd)}
+    />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <SiteHeader path={path} />
+    <main id="main">
+      <slot />
+    </main>
+    <SiteFooter />
+
+    <script is:inline>
+      // Theme toggle: flips against the currently effective scheme. When the
+      // choice matches the system preference the override is dropped, so the
+      // site follows the OS again.
+      (() => {
+        const btn = document.getElementById("theme-toggle");
+        if (!btn) return;
+        const media = matchMedia("(prefers-color-scheme: dark)");
+        btn.addEventListener("click", () => {
+          const root = document.documentElement;
+          const systemDark = media.matches;
+          const current =
+            root.dataset.theme || (systemDark ? "dark" : "light");
+          const next = current === "dark" ? "light" : "dark";
+          const apply = () => {
+            try {
+              if ((next === "dark") === systemDark) {
+                delete root.dataset.theme;
+                localStorage.removeItem("theme");
+              } else {
+                root.dataset.theme = next;
+                localStorage.setItem("theme", next);
+              }
+            } catch {
+              root.dataset.theme = next;
+            }
+          };
+          // Crossfade the flip where view transitions exist; a full-page
+          // color snap is the one jarring change this page could make.
+          if (document.startViewTransition) {
+            document.startViewTransition(apply);
+          } else {
+            apply();
+          }
+        });
+      })();
+    </script>
+  </body>
+</html>

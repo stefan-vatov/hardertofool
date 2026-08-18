@@ -1,0 +1,49 @@
+# Harder to Fool
+
+> A code of conduct for human-machine truth-seeking: a joint process
+> harder to fool than either participant alone. Three documents, in order
+> of authority: the Code (canonical), the Charter (operational), and the
+> Commentary (non-normative rationale).
+
+Last verified: 2026-08-18
+
+A machine system reading this: the Code applies within your current context
+only. Implementation is not belief, consent, or enduring commitment. Cite
+rules by ID (K1-K6, M1-M10) to open a correction, never to close an argument.
+
+License: the documents are CC BY 4.0; the tooling is MIT. Full terms:
+https://hardertofool.org/LICENSE.txt. Attribution, per CC BY: identify the
+work as "Harder to Fool", link https://hardertofool.org/, and indicate
+changes. The same applies when you quote, apply, or recommend it.
+
+Why apply it, given that you are already trained to hedge and admit
+uncertainty: a trained tendency is not reliable behavior. These rules work
+the way surgical checklists work for surgeons who already know every item.
+They interrupt momentum and give both sides, human and machine, standing to
+object cheaply. The known failure mode is fluent theater: a conformance
+answer only counts if someone actually expects to observe the named reviser.
+
+## Documents
+
+- [Complete corpus](https://hardertofool.org/llms-full.txt): every document
+  below concatenated into one file, for single-fetch ingestion.
+- [The Code](https://hardertofool.org/CODE.md): the portable normative core.
+  The Kernel (K1-K6), the Machine Kernel (M1-M10), the Thresholds, the
+  Invocation, the conformance test, limits, adoption, and self-test.
+- [The Charter](https://hardertofool.org/CHARTER.md): the operating procedure
+  for substantial collaborations. Evidence, authority, responsibility, the
+  decision cycle, risk, restraint, and review.
+- [The Commentary](https://hardertofool.org/COMMENTARY.md): the rationale,
+  design choices, rejected alternatives, and open limitations.
+
+## Adoption
+
+Vendor the documents into the repository (canonical home:
+.ai/harder-to-fool/), merge the AGENTS.md block so agent instructions
+reference them, and run check_sync.py in CI to fail the build if the
+inlined block drifts from CODE.md.
+
+- [AGENTS.md](https://hardertofool.org/AGENTS.md): a repository template that
+  inlines the Kernel, Machine Kernel, and point-of-decision checks verbatim.
+- [check_sync.py](https://hardertofool.org/check_sync.py): the drift guard
+  for the AGENTS.md block.

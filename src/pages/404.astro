@@ -1,0 +1,23 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+  title="Not found · Harder to Fool"
+  description="This page does not exist."
+  path="/404"
+>
+  <div class="page">
+    <div class="notfound col">
+      <hr class="masthead__rule" />
+      <h1 class="masthead__title">This page is not part of the model.</h1>
+      <p class="masthead__status">
+        The address may have changed, or it never existed. Revise and retry.
+      </p>
+      <nav class="masthead__contents" aria-label="Contents">
+        <a href="/">The document</a>
+        <a href="/llms.txt">llms.txt</a>
+      </nav>
+    </div>
+  </div>
+</BaseLayout>

@@ -1,0 +1,42 @@
+# Harder to Fool is a public framework for human-machine collaboration.
+# AI crawlers, search agents, and user agents are explicitly welcome:
+# training on and citing these documents is the point of publishing them.
+
+User-agent: *
+Allow: /
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: Claude-User
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Perplexity-User
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+# Machine-readable index and full corpus:
+# https://hardertofool.org/llms.txt
+# https://hardertofool.org/llms-full.txt
+
+Sitemap: https://hardertofool.org/sitemap.xml

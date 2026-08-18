@@ -1,0 +1,28 @@
+---
+const nav = [
+  { href: "/#code", label: "Code" },
+  { href: "/#charter", label: "Charter" },
+  { href: "/#commentary", label: "Commentary" },
+];
+---
+
+<header class="site-header">
+  <div class="page site-header__inner">
+    <a class="wordmark" href="/">Harder to <span class="fool">Fool</span></a>
+    <nav class="site-nav" aria-label="Primary">
+      {nav.map((item) => <a href={item.href}>{item.label}</a>)}
+      <button
+        id="theme-toggle"
+        class="theme-toggle"
+        type="button"
+        aria-label="Toggle color scheme"
+      >
+        <!-- A half-filled disc: the one hand-drawn mark on the site. -->
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.5"></circle>
+          <path d="M12 3a9 9 0 0 1 0 18Z" fill="currentColor"></path>
+        </svg>
+      </button>
+    </nav>
+  </div>
+</header>

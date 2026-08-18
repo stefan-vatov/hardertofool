@@ -1,0 +1,208 @@
+---
+import { getEntry, render } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const parts = [
+  {
+    id: "code",
+    title: "The Code",
+    meta: "Canonical. The portable normative core.",
+    file: "CODE.md",
+  },
+  {
+    id: "charter",
+    title: "The Charter",
+    meta: "Operational elaboration. The Code governs on conflict.",
+    file: "CHARTER.md",
+  },
+  {
+    id: "commentary",
+    title: "The Commentary",
+    meta: "Non-normative. It explains; it does not govern.",
+    file: "COMMENTARY.md",
+  },
+] as const;
+
+const rendered = await Promise.all(
+  parts.map(async (part) => {
+    const entry = await getEntry("docs", part.id);
+    if (!entry) throw new Error(`Missing document: ${part.id}`);
+    const { Content } = await render(entry);
+    return { ...part, Content };
+  }),
+);
+---
+
+<BaseLayout
+  title="Harder to Fool"
+  description="A code of conduct for human-machine truth-seeking: a joint process harder to fool than either participant alone. The complete text of the Code, the Charter, and the Commentary."
+  path="/"
+>
+  <div class="progress" aria-hidden="true"></div>
+
+  <div class="page">
+    <header class="masthead">
+      <hr class="masthead__rule" />
+      <h1 class="masthead__monument">Harder to&nbsp;Fool</h1>
+      <p class="masthead__sub">
+        A code of conduct for human&#8209;machine truth&#8209;seeking.
+      </p>
+      <p class="masthead__tenets">
+        Reality is the reference.<br />
+        Models are instruments.<br />
+        Confidence must be earned.<br />
+        Correction is progress.
+      </p>
+      <nav class="masthead__contents" aria-label="Contents">
+        {parts.map((part) => <a href={`#${part.id}`}>{part.title}</a>)}
+        <a href="#colophon">Use</a>
+      </nav>
+    </header>
+
+    <div class="preface col">
+      <p>
+        Humans and machine systems now reach conclusions together, and the
+        failure mode is quiet. A model writes just as fluently when it is
+        wrong, and its agreement is easy to mistake for evidence. When the
+        result is bad, nobody is quite sure who decided.
+      </p>
+      <p>
+        Harder to Fool is a short discipline for that work. Six rules for
+        the process, ten for the machine, and one test for any claim that
+        matters: <em>name the observation that would change your mind.</em>
+        Every rule has an ID, so saying &ldquo;K3 applies&rdquo; opens a
+        correction rather than winning an argument.
+      </p>
+      <p>
+        Models are already trained to hedge and admit uncertainty, so a code
+        like this can look redundant. Surgeons said the same about
+        checklists: they already knew every item. Checklists cut error rates
+        anyway, because they interrupt momentum and give the nurse standing
+        to challenge the surgeon. The rule IDs do that job here. A trained
+        tendency is not reliable behavior, and under pressure a model still
+        agrees too easily. Two words give anyone at the table, human or
+        machine, standing to object before a mistake ships.
+      </p>
+      <p>
+        The failure to watch for is theater: a model can complete
+        &ldquo;we would revise this if we observed&nbsp;___&rdquo; with
+        something plausible every time. The blank only counts when someone
+        reads the answer and asks whether anyone expects to observe it. The
+        framework predicts this failure of itself, in writing.
+      </p>
+      <p>
+        Adopting it is plumbing, not ceremony. Copy the documents into your
+        repository, point your agents file at them, and add the small script
+        that fails CI when the copy drifts from the canonical text. There is
+        nothing to join and no rank to hold. And if honest use never changes
+        a decision, the Code says to archive it.
+      </p>
+    </div>
+  </div>
+
+  {
+    rendered.map((part) => (
+      <article class="part" id={part.id}>
+        <div class="running-head">
+          <div class="page running-head__inner">
+            <span>{part.title}</span>
+            <a class="mono-link" href={`/${part.file}`}>
+              {part.file}
+            </a>
+          </div>
+        </div>
+        <div class="page">
+          <header class="part__head col">
+            <h2 class="part__title">{part.title}</h2>
+            <p class="part__meta">{part.meta}</p>
+          </header>
+          <div class="prose col">
+            <part.Content />
+          </div>
+        </div>
+      </article>
+    ))
+  }
+
+  <section class="colophon" id="colophon">
+    <div class="running-head">
+      <div class="page running-head__inner">
+        <span>Use</span>
+        <a class="mono-link" href="/llms.txt">llms.txt</a>
+      </div>
+    </div>
+    <div class="page">
+      <div class="col">
+        <h2 class="colophon__title">Use</h2>
+        <p>
+          <strong>In a repository,</strong> vendor the documents under
+          <code>.ai/harder-to-fool/</code> and merge the AGENTS.md block: it
+          inlines the Kernel verbatim, points back at the canonical files,
+          and check_sync.py fails the build if the block drifts from the
+          Code. Cite rules by ID: &ldquo;K3 applies&rdquo; opens a
+          correction, it does not end an argument. <strong>In a consequential
+          collaboration,</strong> run the Charter&rsquo;s operating cycle and
+          keep its compact decision record. <strong>In a low-stakes
+          task,</strong> apply the principles proportionately; do not turn a
+          simple question into a ceremony.
+        </p>
+        <p>
+          <strong>By a machine system:</strong> every document is served as
+          plain markdown, indexed in llms.txt. A system without persistent
+          identity or memory applies the Code within the current context only.
+          Implementation is not belief, consent, or enduring commitment.
+        </p>
+        <p>
+          The documents are licensed CC BY 4.0: use them anywhere, credit
+          Harder to Fool with a link, and mark your changes, which is the
+          Revision rule as license terms. The tooling is MIT.
+        </p>
+        <ul class="colophon__files">
+          <li>
+            <a href="/CODE.md">CODE.md</a>
+            <span>the canonical text</span>
+          </li>
+          <li>
+            <a href="/CHARTER.md">CHARTER.md</a>
+            <span>the operating procedure</span>
+          </li>
+          <li>
+            <a href="/COMMENTARY.md">COMMENTARY.md</a>
+            <span>the rationale</span>
+          </li>
+          <li>
+            <a href="/AGENTS.md">AGENTS.md</a>
+            <span>a repository template, Kernel inlined verbatim</span>
+          </li>
+          <li>
+            <a href="/check_sync.py">check_sync.py</a>
+            <span>fails the build when the block drifts from the Code</span>
+          </li>
+          <li>
+            <a href="/llms.txt">llms.txt</a>
+            <span>the machine index</span>
+          </li>
+          <li>
+            <a href="/llms-full.txt">llms-full.txt</a>
+            <span>the complete corpus in one fetch</span>
+          </li>
+          <li>
+            <a href="/LICENSE.txt">LICENSE.txt</a>
+            <span>CC BY 4.0 for the documents, MIT for the tooling</span>
+          </li>
+        </ul>
+        <div class="colophon__end">
+          <svg class="colophon__device" viewBox="0 0 32 32" aria-hidden="true">
+            <rect x="6" y="7" width="3.5" height="18"></rect>
+            <rect x="14.25" y="7" width="3.5" height="18"></rect>
+            <rect x="22.5" y="7" width="3.5" height="18"></rect>
+          </svg>
+          <p class="colophon__close">
+            The repository history is the revision record.<br />
+            Forks disclose their source and substantive modifications.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
