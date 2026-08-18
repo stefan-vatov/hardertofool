@@ -1,6 +1,6 @@
 # Harder to Fool
 
-> A code of conduct for human-machine truth-seeking: a joint process
+> A protocol for human-machine truth-seeking: a joint process
 > harder to fool than either participant alone. Three documents, in order
 > of authority: the Code (canonical), the Charter (operational), and the
 > Commentary (non-normative rationale).

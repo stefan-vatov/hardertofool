@@ -9,7 +9,7 @@ import agents from "../../AGENTS.md?raw";
 const body = [
   "# Harder to Fool — complete corpus",
   "",
-  "> A code of conduct for human-machine truth-seeking: a joint process",
+  "> A protocol for human-machine truth-seeking: a joint process",
   "> harder to fool than either participant alone. This file concatenates",
   "> every canonical document. Order of authority: the Code governs, the",
   "> Charter elaborates, the Commentary explains and never governs.",

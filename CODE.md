@@ -1,6 +1,6 @@
 # Harder to Fool — The Code
 
-**A code of conduct for human–machine truth-seeking.**  
+**A protocol for human–machine truth-seeking.**  
 **Status:** Provisional.  
 **Authority:** None beyond the quality of its evidence, arguments, and results.
 
