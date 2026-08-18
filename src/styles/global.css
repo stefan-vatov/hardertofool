@@ -332,6 +332,28 @@ main {
   color: var(--accent);
 }
 
+/* The repository mark: an icon link sized and aligned with the toggle. */
+.icon-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: 2rem;
+  block-size: 2rem;
+  margin-block: -0.5rem;
+  border-radius: 50%;
+  color: var(--ink-muted);
+  transition: color 120ms ease;
+}
+
+.icon-link:hover {
+  color: var(--accent);
+}
+
+.icon-link svg {
+  inline-size: 1rem;
+  block-size: 1rem;
+}
+
 .theme-toggle {
   display: inline-flex;
   align-items: center;
@@ -813,6 +835,17 @@ main {
 
 .site-footer nav a:hover {
   color: var(--accent);
+}
+
+.site-footer__gh {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45em;
+}
+
+.site-footer__gh svg {
+  inline-size: 0.875rem;
+  block-size: 0.875rem;
 }
 
 /* --------------------------------------------------------------------------
