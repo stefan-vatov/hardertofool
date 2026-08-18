@@ -152,6 +152,22 @@ const rendered = await Promise.all(
           identity or memory applies the Code within the current context only.
           Implementation is not belief, consent, or enduring commitment.
         </p>
+        <p><strong>By hand,</strong> four commands:</p>
+        <pre class="colophon__cmd"><code>mkdir -p .ai/harder-to-fool
+curl -fsSL "https://hardertofool.org/&#123;CODE.md,CHARTER.md,COMMENTARY.md,check_sync.py&#125;" -o ".ai/harder-to-fool/#1"
+curl -fsSL https://hardertofool.org/AGENTS.md &gt;&gt; AGENTS.md
+python3 .ai/harder-to-fool/check_sync.py .ai/harder-to-fool/CODE.md AGENTS.md</code></pre>
+        <p>
+          Then trim the appended AGENTS.md block into your own file and add
+          the last command to CI. <strong>Or hand it to your agent:</strong>
+        </p>
+        <blockquote class="colophon__prompt">
+          Set up Harder to Fool in this repository: read
+          https://hardertofool.org/llms-full.txt, vendor CODE.md, CHARTER.md,
+          COMMENTARY.md, and check_sync.py under .ai/harder-to-fool/, merge
+          the block from https://hardertofool.org/AGENTS.md into our agents
+          file, and add the check_sync.py drift check to CI.
+        </blockquote>
         <p>
           The documents are licensed CC BY 4.0: use them anywhere, credit
           Harder to Fool with a link, and mark your changes, which is the

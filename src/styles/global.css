@@ -700,6 +700,29 @@ main {
   font-weight: 700;
 }
 
+/* The adoption commands: a plain terminal block, set like an inset plate. */
+.colophon__cmd {
+  border: 1px solid var(--line);
+  padding: 1rem 1.2rem;
+  margin-block: 1.2em;
+  overflow-x: auto;
+  line-height: 1.75;
+}
+
+.colophon__cmd code {
+  font-size: 0.75rem;
+}
+
+/* The delegation prompt: reading text, framed the same way, copyable whole. */
+.colophon__prompt {
+  border: 1px solid var(--line);
+  padding: 1rem 1.2rem;
+  margin-block: 1.2em;
+  font-size: 0.9375rem;
+  color: var(--ink-muted);
+  overflow-wrap: break-word;
+}
+
 .colophon__files {
   list-style: none;
   margin-block-start: 2rem;
